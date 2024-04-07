@@ -5,7 +5,6 @@ import {Settings} from './src/view/visitor/settings';
 import {Index} from './src/view/visitor';
 import {Login} from './src/view/visitor/authentication/Login';
 import {SignUp} from './src/view/visitor/authentication/Signup';
-import BottomModal from './src/modal/bottomModal';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,11 +12,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          options={{headerShown: false}}
-          component={BottomModal}
-        />
         <Tab.Screen name="s" options={{headerShown: false}} component={Index} />
         <Tab.Screen
           name="login"
