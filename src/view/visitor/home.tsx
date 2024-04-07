@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -13,13 +13,24 @@ import {useModalContext} from '../../context/modalContext';
 import {sl} from '../../style';
 import {screen} from '../../object/screen';
 import {CampDetailModal} from '../../modal/campDetail';
+import {RegisterFormCamp} from './camp/registerFormCamp';
+import {BottomContext} from '../../context/bottomModalContext';
+import {ModalContextType} from '../../types/modalContextType';
 
 export const Home = () => {
-  const {isModalVisible, setIsModalVisible} = useModalContext();
-  console.log(isModalVisible);
+  const {setIsModalVisible} = useModalContext();
+  const [showBottomModal, setShowBottomModal] = useState(false);
+  const toggleBottomSheet = () => {
+    setShowBottomModal(!showBottomModal);
+  };
+  const modalProps: ModalContextType = {
+    isModalVisible: showBottomModal,
+    setIsModalVisible: isVisible => setShowBottomModal(isVisible),
+  };
   return (
-    <>
-      <View style={styles.container}>
+    <BottomContext.Provider value={modalProps}>
+      <RegisterFormCamp />
+      <View style={[styles.container]}>
         <View style={styles.subLogoContainer}>
           <Image
             style={styles.logo}
@@ -27,7 +38,7 @@ export const Home = () => {
           />
         </View>
         <ScrollView>
-          <View style={[sl.colSm11_5, sl.card, sl.mAuto, sl.p1]}>
+          <View style={[sl.colSm11_5, sl.card, sl.mAuto, sl.p1, sl.rounded0]}>
             <View style={[sl.row]}>
               <View style={[sl.colSm10, sl.p0]}>
                 <Text style={[sl.textSuccess, sl.textDark, sl.fwBolder, sl.p6]}>
@@ -67,7 +78,7 @@ export const Home = () => {
                     source={require('../../assets/lotties/detail.json')}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={[sl.p2]}>
+                <TouchableOpacity style={[sl.p2]} onPress={toggleBottomSheet}>
                   <View style={[sl.mAuto, sl.bgPrimary]}>
                     <LottieView
                       autoPlay={true}
@@ -109,7 +120,7 @@ export const Home = () => {
         />
       </View>
       <CampDetailModal />
-    </>
+    </BottomContext.Provider>
   );
 };
 
