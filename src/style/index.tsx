@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {screen} from '../object/screen';
 
 export const sl = StyleSheet.create({
   bgPrimary: {
@@ -31,6 +32,8 @@ export const sl = StyleSheet.create({
   borderSuCess: {borderColor: '#28a745'},
   borderDanger: {borderColor: '#db3545'},
   borderMuted: {borderColor: '#6c757d'},
+  // fs
+
   // card
   card: {
     backgroundColor: '#fff',
@@ -55,19 +58,19 @@ export const sl = StyleSheet.create({
   },
   //   font
   display1: {
-    fontSize: 48,
+    fontSize: 48 * screen.width * 0.003,
   },
   display2: {
-    fontSize: 36,
+    fontSize: 36 * screen.width * 0.003,
   },
   display3: {
-    fontSize: 24,
+    fontSize: 24 * screen.width * 0.003,
   },
   display4: {
-    fontSize: 12,
+    fontSize: 12 * screen.width * 0.003,
   },
   display5: {
-    fontSize: 7,
+    fontSize: 7 * screen.width * 0.003,
   },
   //   Grid
   row: {
@@ -94,6 +97,21 @@ export const sl = StyleSheet.create({
   mLeft: {alignSelf: 'flex-start'},
   mRight: {alignSelf: 'flex-end'},
   m0: {marginVertical: 0},
+  mt1: {marginTop: '1%'},
+  mt2: {marginTop: '2%'},
+  mt3: {marginTop: '3%'},
+  mt4: {marginTop: '4%'},
+  mt5: {marginTop: '5%'},
+  mb1: {marginBottom: '1%'},
+  mb2: {marginBottom: '2%'},
+  mb3: {marginBottom: '3%'},
+  mb4: {marginBottom: '4%'},
+  mb5: {marginBottom: '5%'},
+  mx1: {marginLeft: '1%'},
+  mx2: {marginLeft: '2%'},
+  mx3: {marginLeft: '3%'},
+  mx4: {marginLeft: '4%'},
+  mx5: {marginLeft: '5%'},
   g1: {marginHorizontal: 10},
   //   padding
   p0: {padding: 0},
@@ -113,6 +131,7 @@ export const sl = StyleSheet.create({
   textRight: {textAlign: 'right'},
   textJustify: {textAlign: 'justify'},
   textPrimary: {color: '#007bff'},
+  textWhite: {color: 'white'},
   textDark: {color: 'black'},
   textSuccess: {color: '#28a745'},
   textDanger: {color: '#dc3545'},
