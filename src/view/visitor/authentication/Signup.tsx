@@ -10,7 +10,17 @@ import {
   TextInput,
 } from 'react-native';
 import {screen} from '../../../object/screen';
+import { useActiveCamp } from '../../../controller/camp/query';
+import { useState } from 'react';
+import { PageInput } from '../../../types/pageInput';
 export const SignUp = () => {
+  const [page] = useState<PageInput>({
+    pageNumber: 0,
+    pageSize: 10,
+    sort: 'id',
+  });
+  const {response}=useActiveCamp(page);
+  console.log(response);
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={'blue'} />
