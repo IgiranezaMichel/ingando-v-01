@@ -16,6 +16,10 @@ import {CampDetailModal} from '../../modal/campDetail';
 import {RegisterFormCamp} from './camp/registerFormCamp';
 import {BottomContext} from '../../context/bottomModalContext';
 import {ModalContextType} from '../../types/modalContextType';
+import {useCampContext} from '../../context/campContext';
+import {DataListApi} from '../../types/dataListApi';
+import {useActiveCamp} from '../../controller/camp/query';
+import {PageInput} from '../../types/pageInput';
 
 export const Home = () => {
   const {setIsModalVisible} = useModalContext();
@@ -27,6 +31,19 @@ export const Home = () => {
     isModalVisible: showBottomModal,
     setIsModalVisible: isVisible => setShowBottomModal(isVisible),
   };
+  const [page, setPage] = useState<PageInput>({
+    pageNumber: 0,
+    pageSize: 10,
+    sort: 'id',
+  });
+  const {response,refetch} = useActiveCamp(page);
+  console.log(response)
+  // const data: DataListApi = {
+  //   content: response,
+  //   updateContent() {
+  //     refetch();
+  //   },
+  // };
   return (
     <BottomContext.Provider value={modalProps}>
       <RegisterFormCamp />
