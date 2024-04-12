@@ -5,9 +5,11 @@ import {Settings} from './src/view/visitor/settings';
 import {Index} from './src/view/visitor';
 import {Login} from './src/view/visitor/authentication/Login';
 import {SignUp} from './src/view/visitor/authentication/Signup';
-import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+import {ApolloClient, InMemoryCache} from '@apollo/client';
+import {ApolloProvider} from '@apollo/react-hooks';
+import { Home } from './src/view/visitor/home';
 const client = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
+  uri: 'http://172.20.1.125:8080/graphql',
   cache: new InMemoryCache(),
 });
 const Tab = createBottomTabNavigator();
@@ -15,7 +17,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen
             name="s"
@@ -34,7 +36,8 @@ const App = () => {
           />
           <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
+      <SignUp />
     </ApolloProvider>
   );
 };
