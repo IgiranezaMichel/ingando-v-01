@@ -5,27 +5,37 @@ import {Settings} from './src/view/visitor/settings';
 import {Index} from './src/view/visitor';
 import {Login} from './src/view/visitor/authentication/Login';
 import {SignUp} from './src/view/visitor/authentication/Signup';
-
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
+const client = new ApolloClient({
+  uri: 'http://localhost:8080/graphql',
+  cache: new InMemoryCache(),
+});
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="s" options={{headerShown: false}} component={Index} />
-        <Tab.Screen
-          name="login"
-          options={{headerShown: false}}
-          component={Login}
-        />
-        <Tab.Screen
-          name="signup"
-          options={{headerShown: false}}
-          component={SignUp}
-        />
-        <Tab.Screen name="Settings" component={Settings} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            name="s"
+            options={{headerShown: false}}
+            component={Index}
+          />
+          <Tab.Screen
+            name="login"
+            options={{headerShown: false}}
+            component={Login}
+          />
+          <Tab.Screen
+            name="signup"
+            options={{headerShown: false}}
+            component={SignUp}
+          />
+          <Tab.Screen name="Settings" component={Settings} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </ApolloProvider>
   );
 };
 
