@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.9",
+    "@apollo/react-hooks": "^4.0.0",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
+    "apollo-client": "^2.6.10",
     "graphql": "^16.8.1",
     "lottie-react-native": "^6.7.0",
     "react": "18.2.0",
