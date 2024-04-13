@@ -7,9 +7,8 @@ import {Login} from './src/view/visitor/authentication/Login';
 import {SignUp} from './src/view/visitor/authentication/Signup';
 import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {ApolloProvider} from '@apollo/react-hooks';
-import { Home } from './src/view/visitor/home';
 const client = new ApolloClient({
-  uri: 'http://172.20.1.125:8080/graphql',
+  uri: 'http://192.168.137.1:8080/graphql',
   cache: new InMemoryCache(),
 });
 const Tab = createBottomTabNavigator();
@@ -17,7 +16,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      {/* <NavigationContainer>
+      <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen
             name="s"
@@ -36,8 +35,7 @@ const App = () => {
           />
           <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
-      </NavigationContainer> */}
-      <SignUp />
+      </NavigationContainer>
     </ApolloProvider>
   );
 };
