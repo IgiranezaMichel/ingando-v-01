@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
@@ -16,10 +18,11 @@ import {CampDetailModal} from '../../modal/campDetail';
 import {RegisterFormCamp} from './camp/registerFormCamp';
 import {BottomContext} from '../../context/bottomModalContext';
 import {ModalContextType} from '../../types/modalContextType';
-import {useCampContext} from '../../context/campContext';
+import {CampContext} from '../../context/campContext';
 import {DataListApi} from '../../types/dataListApi';
 import {useActiveCamp} from '../../controller/camp/query';
 import {PageInput} from '../../types/pageInput';
+import RenderHTML from 'react-native-render-html';
 
 export const Home = () => {
   const {setIsModalVisible} = useModalContext();
@@ -31,112 +34,151 @@ export const Home = () => {
     isModalVisible: showBottomModal,
     setIsModalVisible: isVisible => setShowBottomModal(isVisible),
   };
-  const [page, setPage] = useState<PageInput>({
+  const [page] = useState<PageInput>({
     pageNumber: 0,
     pageSize: 10,
     sort: 'id',
   });
-  const {response,refetch} = useActiveCamp(page);
-  console.log(response)
-  // const data: DataListApi = {
-  //   content: response,
-  //   updateContent() {
-  //     refetch();
-  //   },
-  // };
+  const {response, refetch} = useActiveCamp(page);
+  const data: DataListApi = {
+    content: response,
+    updateContent() {
+      refetch();
+    },
+  };
+  const source = {
+    html: `
+  <p style='text-align:center;'>
+    Hello World!
+  </p>`,
+  };
+  console.log(data);
   return (
     <BottomContext.Provider value={modalProps}>
-      <RegisterFormCamp />
-      <View style={[styles.container]}>
-        <View style={styles.subLogoContainer}>
-          <Image
-            style={styles.logo}
-            source={require('../../assets/logo.png')}
+      <CampContext.Provider value={data}>
+        <RegisterFormCamp />
+        <View style={[styles.container]}>
+          <View style={styles.subLogoContainer}>
+            <Image
+              style={styles.logo}
+              source={require('../../assets/logo.png')}
+            />
+          </View>
+          <ScrollView>
+            {response.responseReady &&
+              response.responseContent != undefined &&
+              response.responseContent.content != undefined &&
+              response.responseContent.content.length != 0 &&
+              response.responseContent.content.map(data => {
+                return (
+                  <View
+                    style={[
+                      sl.colSm11_5,
+                      sl.card,
+                      sl.mAuto,
+                      sl.p1,
+                      sl.rounded0,
+                    ]}>
+                    <View style={[sl.row]}>
+                      <View style={[sl.colSm10, sl.p0]}>
+                        <Text
+                          style={[
+                            sl.textSuccess,
+                            sl.textDark,
+                            sl.fwBolder,
+                            sl.p6,
+                          ]}>
+                          {data.title}
+                        </Text>
+                        <Text
+                          style={[
+                            sl.textSuccess,
+                            sl.textDark,
+                            sl.p0,
+                            sl.textJustify,
+                            sl.p1,
+                          ]}>
+                          {data.description}
+                        </Text>
+                      </View>
+                      <View
+                        style={[
+                          {
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                            borderLeftWidth: 2,
+                          },
+                          sl.mAuto,
+                        ]}>
+                        <TouchableOpacity
+                          style={[sl.p2]}
+                          onPress={() => {
+                            setIsModalVisible(true);
+                          }}>
+                          <LottieView
+                            autoPlay={true}
+                            loop={false}
+                            style={[
+                              {width: 50, height: 50},
+                              sl.mAuto,
+                              sl.bgSuccess,
+                            ]}
+                            source={require('../../assets/lotties/detail.json')}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[sl.p2]}
+                          onPress={toggleBottomSheet}>
+                          <View style={[sl.mAuto, sl.bgPrimary]}>
+                            <LottieView
+                              autoPlay={true}
+                              style={[{width: 50, height: 50}]}
+                              source={require('../../assets/lotties/edit.json')}
+                            />
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                    <View style={[sl.row, sl.spaceBtn]}>
+                      <View style={[sl.row]}>
+                        <Text style={[sl.fwBolder, sl.textDark]}>Frw </Text>
+                        <Text style={[sl.fwBolder, sl.textPrimary]}>
+                          {data.cost}
+                        </Text>
+                      </View>
+                      <View style={[sl.row]}>
+                        <LottieView
+                          autoPlay={true}
+                          source={require('../../assets/lotties/location.json')}
+                          style={{width: 30, height: 30}}
+                        />
+                        <Text style={[sl.fwBolder, sl.textDark]}>
+                          {data.address}
+                        </Text>
+                      </View>
+                      <View style={[sl.row]}>
+                        <LottieView
+                          autoPlay={true}
+                          source={require('../../assets/lotties/deadline.json')}
+                          style={{width: 30, height: 30}}
+                        />
+                        <Text style={[sl.fwBolder, sl.textDark]}>Location</Text>
+                      </View>
+                      <RenderHTML contentWidth={100} source={source} />
+                    </View>
+                  </View>
+                );
+              })}
+          </ScrollView>
+          <LottieView
+            autoPlay={true}
+            source={require('../../assets/Lottie.json')}
+            style={{width: 100, height: 100}}
           />
         </View>
-        <ScrollView>
-          <View style={[sl.colSm11_5, sl.card, sl.mAuto, sl.p1, sl.rounded0]}>
-            <View style={[sl.row]}>
-              <View style={[sl.colSm10, sl.p0]}>
-                <Text style={[sl.textSuccess, sl.textDark, sl.fwBolder, sl.p6]}>
-                  Header
-                </Text>
-                <Text
-                  style={[
-                    sl.textSuccess,
-                    sl.textDark,
-                    sl.p0,
-                    sl.textJustify,
-                    sl.p1,
-                  ]}>
-                  In React Native, you typically use flex for layout, and it
-                  doesn't directly support units like
-                </Text>
-              </View>
-              <View
-                style={[
-                  {
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'column',
-                    borderLeftWidth: 2,
-                  },
-                  sl.mAuto,
-                ]}>
-                <TouchableOpacity
-                  style={[sl.p2]}
-                  onPress={() => {
-                    setIsModalVisible(true);
-                  }}>
-                  <LottieView
-                    autoPlay={true}
-                    loop={false}
-                    style={[{width: 50, height: 50}, sl.mAuto, sl.bgSuccess]}
-                    source={require('../../assets/lotties/detail.json')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity style={[sl.p2]} onPress={toggleBottomSheet}>
-                  <View style={[sl.mAuto, sl.bgPrimary]}>
-                    <LottieView
-                      autoPlay={true}
-                      style={[{width: 50, height: 50}]}
-                      source={require('../../assets/lotties/edit.json')}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={[sl.row, sl.spaceBtn]}>
-              <View style={[sl.row]}>
-                <Text style={[sl.fwBolder, sl.textDark]}>Frw </Text>
-                <Text style={[sl.fwBolder, sl.textPrimary]}>450</Text>
-              </View>
-              <View style={[sl.row]}>
-                <LottieView
-                  autoPlay={true}
-                  source={require('../../assets/lotties/location.json')}
-                  style={{width: 30, height: 30}}
-                />
-                <Text style={[sl.fwBolder, sl.textDark]}>Location</Text>
-              </View>
-              <View style={[sl.row]}>
-                <LottieView
-                  autoPlay={true}
-                  source={require('../../assets/lotties/deadline.json')}
-                  style={{width: 30, height: 30}}
-                />
-                <Text style={[sl.fwBolder, sl.textDark]}>Location</Text>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-        <LottieView
-          autoPlay={true}
-          source={require('../../assets/Lottie.json')}
-          style={{width: 100, height: 100}}
-        />
-      </View>
-      <CampDetailModal />
+        <CampDetailModal />
+      </CampContext.Provider>
     </BottomContext.Provider>
   );
 };
