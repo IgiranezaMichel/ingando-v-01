@@ -8,7 +8,7 @@ import {SignUp} from './src/view/visitor/authentication/Signup';
 import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {ApolloProvider} from '@apollo/react-hooks';
 const client = new ApolloClient({
-  uri: 'http://192.168.137.1:8080/graphql',
+  uri: 'http://192.168.43.39:8080/graphql',
   cache: new InMemoryCache(),
 });
 const Tab = createBottomTabNavigator();
