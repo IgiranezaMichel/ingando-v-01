@@ -50,7 +50,6 @@ export const Home = () => {
   return (
     <BottomContext.Provider value={modalProps}>
       <CampContext.Provider value={data}>
-        <RegisterFormCamp />
         <View style={[styles.container]}>
           <View style={styles.subLogoContainer}>
             <Image
@@ -177,6 +176,7 @@ export const Home = () => {
           />
         </View>
         <CampDetailModal arrIndex={arrIndex} />
+        <RegisterFormCamp arrIndex={arrIndex} />
       </CampContext.Provider>
     </BottomContext.Provider>
   );
