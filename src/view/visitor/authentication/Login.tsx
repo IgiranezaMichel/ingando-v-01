@@ -13,8 +13,10 @@ import {
 import {useState} from 'react';
 import {screen} from '../../../object/screen';
 import {sl} from '../../../style';
+import {useNavigation} from '@react-navigation/native';
 export const Login = () => {
   const [hidePassword, setHidePassword] = useState(true);
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={'blue'} />
@@ -66,19 +68,23 @@ export const Login = () => {
           </View>
 
           <View>
-            <Text style={styles.forgetPasswordTxt}>Forget Password?</Text>
+            <Text
+              onPress={() => navigation.navigate('forgetPassword' as never)}
+              style={styles.forgetPasswordTxt}>
+              Forget Password?
+            </Text>
           </View>
 
           <TouchableWithoutFeedback onPress={() => {}}>
             <View style={styles.loginBtb}>
-              <Text style={styles.loginTxt}>Login</Text>
+              <Text
+                style={styles.loginTxt}
+                onPress={() => navigation.navigate('auth_user' as never)}>
+                Login
+              </Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
-      </View>
-      <View style={styles.notMemberContainer}>
-        <Text style={styles.text}>Not a member?</Text>
-        <Text style={styles.signUpTxt}>Sign up</Text>
       </View>
     </ScrollView>
   );
@@ -172,18 +178,6 @@ const styles = StyleSheet.create({
     marginTop: 7,
     fontWeight: 'bold',
   },
-  signUpTxt: {
-    color: 'blue',
-    fontWeight: 'bold',
-  },
-  notMemberContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginRight: screen.width * 0.02,
-  },
-
   loginBtb: {
     borderColor: 'black',
     backgroundColor: 'green',

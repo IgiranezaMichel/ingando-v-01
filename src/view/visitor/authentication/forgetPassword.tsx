@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {
   ScrollView,
@@ -10,17 +11,10 @@ import {
   TextInput,
 } from 'react-native';
 import {screen} from '../../../object/screen';
-import {useActiveCamp} from '../../../controller/camp/query';
-import {useState} from 'react';
-import {PageInput} from '../../../types/pageInput';
-export const SignUp = () => {
-  const [page] = useState<PageInput>({
-    pageNumber: 0,
-    pageSize: 10,
-    sort: 'id',
-  });
-  const {response} = useActiveCamp(page);
-  console.log(response);
+import {sl} from '../../../style';
+import {useNavigation} from '@react-navigation/native';
+export const ForgetPassword = () => {
+  const navigation = useNavigation();
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={'blue'} />
@@ -41,7 +35,7 @@ export const SignUp = () => {
             />
           </View>
           <View>
-            <Text style={styles.avatarLegend}>Sign up form</Text>
+            <Text style={styles.avatarLegend}>Forget Password</Text>
           </View>
           <TextInput
             style={styles.firstNameInput}
@@ -62,29 +56,20 @@ export const SignUp = () => {
             placeholderTextColor={'grey'}
             placeholder="Enter your phone number ..."
           />
-          <TextInput
-            style={styles.firstNameInput}
-            underlineColorAndroid={'blue'}
-            placeholderTextColor={'grey'}
-            placeholder="Enter your Email ..."
-          />
-          <TextInput
-            secureTextEntry={true}
-            style={styles.firstNameInput}
-            underlineColorAndroid={'blue'}
-            placeholderTextColor={'grey'}
-            placeholder="Enter your Password ..."
-          />
-          <TextInput
-            secureTextEntry={true}
-            style={styles.firstNameInput}
-            underlineColorAndroid={'blue'}
-            placeholderTextColor={'grey'}
-            placeholder="Re write your Password ..."
-          />
-          <TouchableWithoutFeedback onPress={() => {}}>
+          <Text
+            onPress={() => navigation.navigate('login' as never)}
+            style={[
+              sl.textDark,
+              sl.mRight,
+              sl.textPrimary,
+              sl.fwBolder,
+              {marginRight: '12%', marginTop: 7},
+            ]}>
+            Login
+          </Text>
+          <TouchableWithoutFeedback>
             <View style={styles.signUpBtn}>
-              <Text style={styles.signUpTxt}>Sign up</Text>
+              <Text style={styles.signUpTxt}>Submit</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

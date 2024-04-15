@@ -10,14 +10,16 @@ import {
     StatusBar,
 } from 'react-native';
 import { screen } from '../object/screen';
-export const AuthenticationHome = () => {
+import { useNavigation } from '@react-navigation/native';
+export const Index = () => {
+    const navigation = useNavigation();
     return (
         <ScrollView style={styles.container}>
             <StatusBar backgroundColor={'blue'} />
             <View style={styles.logoContainer}>
                 <Image
                     style={styles.logo}
-                    source={require('../../../assets/visitor/download.png')}
+                    source={require('../../src/assets/visitor/download.png')}
                 />
             </View>
             <View style={styles.btnOptionsContainer}>
@@ -26,14 +28,9 @@ export const AuthenticationHome = () => {
                         Welcome to Adventist Youth App
                     </Text>
                     <Text style={styles.ingando}>Ingando Management System</Text>
-                    <TouchableWithoutFeedback onPress={() => { }}>
+                    <TouchableWithoutFeedback onPress={() => {navigation.navigate('login' as never);}}>
                         <View style={styles.loginBtn}>
                             <Text style={styles.loginTxt}>Login</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={styles.signUpBtn}>
-                            <Text style={styles.signUpTxt}>Sign up</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>

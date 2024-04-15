@@ -19,10 +19,10 @@ export const ReadBook = (props: {arrIndex: number}) => {
   return (
     <Modal
       visible={isModalVisible}
-      style={[sl.border0, sl.bgWhite]}
+      style={[sl.border0, sl.bgWhite, sl.card, sl.rounded0]}
       transparent
       animationType="slide">
-      <StatusBar backgroundColor={'white'} hidden />
+      <StatusBar backgroundColor={'white'} />
       <Text
         style={[
           sl.textDark,
@@ -36,7 +36,7 @@ export const ReadBook = (props: {arrIndex: number}) => {
         close
       </Text>
       {bookData != undefined && (
-        <ScrollView style={[sl.card, {height: screen.height}]}>
+        <ScrollView style={[sl.card, sl.border]}>
           <View style={[sl.card, sl.rounded0]}>
             <Text style={[sl.textDark]}>BookName {bookData.name}</Text>
             <Text style={[sl.textDark]}>Author: {bookData.author}</Text>

@@ -60,6 +60,20 @@ export const Home = () => {
               source={require('../../assets/logo.png')}
             />
           </View>
+          <View style={[sl.mRight, {position: 'absolute'}]}>
+            <Image
+              style={[
+                {
+                  width: 40,
+                  height: 40,
+                  zIndex: 1,
+                  backgroundColor: 'red',
+                },
+                sl.roundedCircle,
+              ]}
+              source={require('../../assets/power-off.png')}
+            />
+          </View>
           <ScrollView>
             {response.responseReady &&
               response.responseContent != undefined &&
@@ -68,106 +82,108 @@ export const Home = () => {
               response.responseContent.content.map(
                 (data: any, index: number) => {
                   return (
-                    <View
-                      key={data.id}
-                      style={[
-                        sl.colSm11_5,
-                        sl.card,
-                        sl.mAuto,
-                        sl.p1,
-                        sl.rounded0,
-                      ]}>
-                      <View style={[sl.row]}>
-                        <View style={[sl.colSm10, sl.p0]}>
-                          <Text
-                            style={[
-                              sl.textSuccess,
-                              sl.textDark,
-                              sl.fwBolder,
-                              sl.p6,
-                            ]}>
-                            {data.title}
-                          </Text>
-                          <Text
-                            style={[
-                              sl.textSuccess,
-                              sl.textDark,
-                              sl.p0,
-                              sl.textJustify,
-                              sl.p1,
-                            ]}>
-                            {data.description}
-                          </Text>
-                        </View>
-                        <View
-                          style={[
-                            {
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              flexDirection: 'column',
-                              borderLeftWidth: 2,
-                            },
-                            sl.mAuto,
-                          ]}>
-                          <TouchableOpacity
-                            style={[sl.p2]}
-                            onPress={() => {
-                              setIsModalVisible(true);
-                              setArrIndex(index);
-                            }}>
-                            <LottieView
-                              autoPlay={true}
-                              loop={false}
+                    <>
+                      <View
+                        key={data.id}
+                        style={[
+                          sl.colSm11_5,
+                          sl.card,
+                          sl.mAuto,
+                          sl.p1,
+                          sl.rounded0,
+                        ]}>
+                        <View style={[sl.row]}>
+                          <View style={[sl.colSm10, sl.p0]}>
+                            <Text
                               style={[
-                                {width: 50, height: 50},
-                                sl.mAuto,
-                                sl.bgSuccess,
-                              ]}
-                              source={require('../../assets/lotties/detail.json')}
-                            />
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={[sl.p2]}
-                            onPress={toggleBottomSheet}>
-                            <View style={[sl.mAuto, sl.bgPrimary]}>
+                                sl.textSuccess,
+                                sl.textDark,
+                                sl.fwBolder,
+                                sl.p6,
+                              ]}>
+                              {data.title}
+                            </Text>
+                            <Text
+                              style={[
+                                sl.textSuccess,
+                                sl.textDark,
+                                sl.p0,
+                                sl.textJustify,
+                                sl.p1,
+                              ]}>
+                              {data.description}
+                            </Text>
+                          </View>
+                          <View
+                            style={[
+                              {
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                flexDirection: 'column',
+                                borderLeftWidth: 2,
+                              },
+                              sl.mAuto,
+                            ]}>
+                            <TouchableOpacity
+                              style={[sl.p2]}
+                              onPress={() => {
+                                setIsModalVisible(true);
+                                setArrIndex(index);
+                              }}>
                               <LottieView
                                 autoPlay={true}
-                                style={[{width: 50, height: 50}]}
-                                source={require('../../assets/lotties/edit.json')}
+                                loop={false}
+                                style={[
+                                  {width: 50, height: 50},
+                                  sl.mAuto,
+                                  sl.bgSuccess,
+                                ]}
+                                source={require('../../assets/lotties/detail.json')}
                               />
-                            </View>
-                          </TouchableOpacity>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={[sl.p2]}
+                              onPress={toggleBottomSheet}>
+                              <View style={[sl.mAuto, sl.bgPrimary]}>
+                                <LottieView
+                                  autoPlay={true}
+                                  style={[{width: 50, height: 50}]}
+                                  source={require('../../assets/lotties/edit.json')}
+                                />
+                              </View>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                        <View style={[sl.row, sl.spaceBtn]}>
+                          <View style={[sl.row]}>
+                            <Text style={[sl.fwBolder, sl.textDark]}>Frw </Text>
+                            <Text style={[sl.fwBolder, sl.textPrimary]}>
+                              {data.cost}
+                            </Text>
+                          </View>
+                          <View style={[sl.row]}>
+                            <LottieView
+                              autoPlay={true}
+                              source={require('../../assets/lotties/location.json')}
+                              style={{width: 30, height: 30}}
+                            />
+                            <Text style={[sl.fwBolder, sl.textDark]}>
+                              {data.address}
+                            </Text>
+                          </View>
+                          <View style={[sl.row]}>
+                            <LottieView
+                              autoPlay={true}
+                              source={require('../../assets/lotties/deadline.json')}
+                              style={{width: 30, height: 30}}
+                            />
+                            <Text style={[sl.fwBolder, sl.textDark]}>
+                              {data.endingDate}
+                            </Text>
+                          </View>
                         </View>
                       </View>
-                      <View style={[sl.row, sl.spaceBtn]}>
-                        <View style={[sl.row]}>
-                          <Text style={[sl.fwBolder, sl.textDark]}>Frw </Text>
-                          <Text style={[sl.fwBolder, sl.textPrimary]}>
-                            {data.cost}
-                          </Text>
-                        </View>
-                        <View style={[sl.row]}>
-                          <LottieView
-                            autoPlay={true}
-                            source={require('../../assets/lotties/location.json')}
-                            style={{width: 30, height: 30}}
-                          />
-                          <Text style={[sl.fwBolder, sl.textDark]}>
-                            {data.address}
-                          </Text>
-                        </View>
-                        <View style={[sl.row]}>
-                          <LottieView
-                            autoPlay={true}
-                            source={require('../../assets/lotties/deadline.json')}
-                            style={{width: 30, height: 30}}
-                          />
-                          <Text style={[sl.fwBolder, sl.textDark]}>
-                            {data.endingDate}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
+                    </>
                   );
                 },
               )}

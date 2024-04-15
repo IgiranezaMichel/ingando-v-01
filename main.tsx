@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ApolloClient, InMemoryCache} from '@apollo/client';
 import {ApolloProvider} from '@apollo/react-hooks';
-import App from './App';
+import AppNavigator from './src/view/navigationContainer';
 const client = new ApolloClient({
   uri: 'http://10.9.2.67:8080/graphql',
   cache: new InMemoryCache(),
@@ -9,7 +9,7 @@ const client = new ApolloClient({
 export const Main = () => {
   return (
     <ApolloProvider client={client}>
-      <App />
+      <AppNavigator />
     </ApolloProvider>
   );
 };
