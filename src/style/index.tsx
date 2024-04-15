@@ -28,10 +28,12 @@ export const sl = StyleSheet.create({
   borderTop: {borderTopWidth: 1},
   borderBottom: {borderBottomWidth: 1},
   borderPrimary: {borderColor: '#007bff'},
-  borderDark: {borderColor: 'blak'},
+  borderTransparent: {borderColor: 'transparent'},
+  borderDark: {borderColor: 'black'},
   borderSuCess: {borderColor: '#28a745'},
   borderDanger: {borderColor: '#db3545'},
   borderMuted: {borderColor: '#6c757d'},
+  borderWhite: {borderColor: 'white'},
   // fs
 
   // card
@@ -39,7 +41,6 @@ export const sl = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     padding: 20,
-    marginVertical: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -112,7 +113,8 @@ export const sl = StyleSheet.create({
   mx3: {marginLeft: '3%'},
   mx4: {marginLeft: '4%'},
   mx5: {marginLeft: '5%'},
-  g1: {marginHorizontal: 10},
+  g1: {margin: '1%'},
+  g2: {margin: '2%'},
   //   padding
   p0: {padding: 0},
   p1: {padding: '1%'},
