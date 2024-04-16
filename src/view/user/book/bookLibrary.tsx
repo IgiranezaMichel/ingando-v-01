@@ -14,6 +14,7 @@ import {ModalContextType} from '../../../types/modalContextType';
 import {PageInput} from '../../../types/pageInput';
 import {ResponseData} from '../../../types/responseData';
 import {ReadBook} from './readBook';
+import {useLogoutModal} from '../../../context/logoutContext';
 export const BookLibrary = () => {
   const [page] = useState<PageInput>({
     pageNumber: 0,
@@ -32,6 +33,7 @@ export const BookLibrary = () => {
     responseContent: books.response.responseContent,
     responseReady: books.response.responseReady,
   };
+  const {setShowLogoutModal} = useLogoutModal();
   return (
     <>
       <View style={[{backgroundColor: 'blue'}]}>
@@ -47,7 +49,9 @@ export const BookLibrary = () => {
           Book Library
         </Text>
       </View>
-      <View style={[sl.mRight, {position: 'absolute'}]}>
+      <TouchableOpacity
+        onPress={() => setShowLogoutModal(true)}
+        style={[sl.mRight, {position: 'absolute'}]}>
         <Image
           style={[
             {
@@ -60,7 +64,7 @@ export const BookLibrary = () => {
           ]}
           source={require('../../../assets/power-off.png')}
         />
-      </View>
+      </TouchableOpacity>
       <View
         style={[
           sl.card,
