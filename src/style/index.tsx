@@ -55,7 +55,7 @@ export const sl = StyleSheet.create({
     fontWeight: 'bold',
   },
   description: {
-    fontSize: 16,
+    fontSize: screen.width / 20,
   },
   //   font
   display1: {
