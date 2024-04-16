@@ -7,13 +7,20 @@ import {Settings} from './settings/settings';
 import {Index} from '.';
 import {History} from './history';
 import {Exam} from './exam';
+import {LogoutContext, LogoutModalProps} from '../../context/logoutContext';
+import {Logout} from './logout';
 const Tab = createBottomTabNavigator();
 export default function AuthenticatedUserBottomNavigation() {
+  const [showModal, setShowModal] = React.useState(false);
+  const data: LogoutModalProps = {
+    setShowLogoutModal: (modal: boolean) => setShowModal(modal),
+    showLogoutModal: showModal,
+  };
   return (
-    <>
+    <LogoutContext.Provider value={data}>
       <Tab.Navigator>
         <Tab.Screen
-          name="s"
+          name="userHomeScreen"
           options={{
             headerShown: false,
             tabBarActiveTintColor: 'green',
@@ -87,6 +94,7 @@ export default function AuthenticatedUserBottomNavigation() {
           }}
         />
       </Tab.Navigator>
-    </>
+      <Logout />
+    </LogoutContext.Provider>
   );
 }
