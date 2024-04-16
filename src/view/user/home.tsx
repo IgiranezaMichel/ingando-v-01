@@ -84,7 +84,7 @@ export const Home = () => {
                   return (
                     <>
                       <View
-                        key={data.id}
+                        key={index}
                         style={[
                           sl.colSm11_5,
                           sl.card,
