@@ -1,4 +1,5 @@
-import AppNavigator from "./src/view/navigationContainer";
+/* eslint-disable react/react-in-jsx-scope */
+import AppNavigator from './src/view/navigationContainer';
 
 const App = () => {
   return (
