@@ -2,8 +2,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {sl} from '../../../style';
+import {useLogoutModal} from '../../../context/logoutContext';
 
 export const Exam = () => {
+  const {setShowLogoutModal} = useLogoutModal();
   return (
     <>
       <View style={[{backgroundColor: 'blue'}]}>
@@ -19,7 +21,9 @@ export const Exam = () => {
           Exam History
         </Text>
       </View>
-      <View style={[sl.mRight, {position: 'absolute'}]}>
+      <TouchableOpacity
+        onPress={() => setShowLogoutModal(true)}
+        style={[sl.mRight, {position: 'absolute'}]}>
         <Image
           style={[
             {
@@ -32,7 +36,7 @@ export const Exam = () => {
           ]}
           source={require('../../../assets/power-off.png')}
         />
-      </View>
+      </TouchableOpacity>
       <View
         style={[
           sl.card,
