@@ -95,6 +95,7 @@ export const Home = () => {
                         sl.p1,
                         sl.rounded0,
                         sl.border,
+                        sl.mt2,
                       ]}>
                       <View style={[sl.row]}>
                         <View style={[sl.colSm10, sl.p0]}>
