@@ -118,6 +118,7 @@ export const sl = StyleSheet.create({
   mx5: {marginLeft: '5%'},
   my2: {marginRight: '2%'},
   my3: {marginRight: '3%'},
+  my4: {marginRight: '4%'},
   g1: {margin: '1%'},
   g2: {margin: '2%'},
   //   padding
