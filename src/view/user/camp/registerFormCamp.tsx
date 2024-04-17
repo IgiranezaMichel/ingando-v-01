@@ -140,16 +140,19 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
         </View>
         <View style={[sl.p4]}>
           <TextInput
+            style={[sl.textDark]}
             placeholder="Enter method used"
             underlineColorAndroid={'black'}
             placeholderTextColor={'grey'}
           />
           <TextInput
+            style={[sl.textDark]}
             placeholder="Enter phone Number"
             underlineColorAndroid={'black'}
             placeholderTextColor={'grey'}
           />
           <TextInput
+            style={[sl.textDark]}
             placeholder="Enter Payment code"
             underlineColorAndroid={'black'}
             placeholderTextColor={'grey'}
