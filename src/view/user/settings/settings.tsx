@@ -17,9 +17,15 @@ import {useEffect, useState} from 'react';
 import {useAccountHolderContext} from '../../../context/accountHolderContext';
 import {BookPreloader} from '../../../component/preloader';
 import {useUpdateAccountHolderPassword} from '../../../controller/accountHolder/mutation';
+import {Popup} from '../../../component/popup';
 
 export const Settings = () => {
   const [hidePassword, setHidePassword] = useState(true);
+  const [response, setResponse] = useState({
+    data: '',
+    ready: false,
+    open: false,
+  });
   const {responseContent} = useAccountHolderContext();
   const [passwordDetail, setPasswordDetail] = useState({
     accountHolderEmail: '',
@@ -33,7 +39,6 @@ export const Settings = () => {
         ...passwordDetail,
         accountHolderEmail: responseContent.email,
       });
-      console.log(passwordDetail);
     }
   }, [passwordDetail.accountHolderEmail]);
   const {updatePassword} = useUpdateAccountHolderPassword(
@@ -43,10 +48,25 @@ export const Settings = () => {
   );
   const updatePasswordHandler = () => {
     if (passwordDetail.newPassword != passwordDetail.retypePassword) {
-      console.log('Retyped password Dont match');
+      setResponse({
+        open: true,
+        ready: true,
+        data: 'Retyped password Dont match',
+      });
     } else {
       updatePassword()
-        .then(data => console.log(data))
+        .then(data => {
+          const result = data.data.updateAccountHolderPassword as string;
+          const responseData = result.substring(
+            result.indexOf(',') + 1,
+            result.lastIndexOf(','),
+          );
+          setResponse({
+            open: true,
+            ready: true,
+            data: responseData,
+          });
+        })
         .catch(err => console.log(err));
     }
   };
@@ -170,6 +190,24 @@ export const Settings = () => {
                 </TouchableOpacity>
               </View>
             </SafeAreaView>
+            {response.open && response.ready && (
+              <Popup open>
+                <View style={[sl.card, sl.colSm10, sl.rounded0]}>
+                  <Text style={[sl.textDark, sl.fwBolder]}>
+                    {response.data}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setResponse({...response, open: false});
+                    }}
+                    style={[sl.mRight, sl.bgDanger, sl.mt8]}>
+                    <Text style={[sl.fwBolder, sl.p2, sl.textWhite]}>
+                      Close
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </Popup>
+            )}
           </ScrollView>
         </>
       )}
