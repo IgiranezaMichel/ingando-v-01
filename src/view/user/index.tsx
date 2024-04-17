@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ModalContext} from '../../context/modalContext';
-import {Home} from './home';
+import {Home} from './camp';
 
 export const Index = () => {
   const [isModalVisible, setIsVisible] = useState(false);
