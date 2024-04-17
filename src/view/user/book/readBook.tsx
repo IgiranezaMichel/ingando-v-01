@@ -6,7 +6,7 @@ import {sl} from '../../../style';
 import {useModalContext} from '../../../context/modalContext';
 import {useBookLibraryContext} from '../../../context/bookLibraryContext';
 import {useEffect, useState} from 'react';
-import {screen} from '../../../object/screen';
+
 export const ReadBook = (props: {arrIndex: number}) => {
   const {isModalVisible, setIsModalVisible} = useModalContext();
   const {responseContent} = useBookLibraryContext();
@@ -19,21 +19,22 @@ export const ReadBook = (props: {arrIndex: number}) => {
   return (
     <Modal
       visible={isModalVisible}
-      style={[sl.border0, sl.bgWhite, sl.card, sl.rounded0]}
-      transparent
+      style={[sl.border0, sl.border0, sl.rounded0]}
+      transparent={false}
       animationType="slide">
       <StatusBar backgroundColor={'white'} />
       <Text
         style={[
-          sl.textDark,
+          sl.textWhite,
           {position: 'absolute', zIndex: 1},
           sl.fwBolder,
           sl.p2,
           sl.bgMuted,
           sl.mRight,
+          sl.bgDanger,
         ]}
         onPress={() => setIsModalVisible(false)}>
-        close
+        X
       </Text>
       {bookData != undefined && (
         <ScrollView style={[sl.card, sl.border]}>
