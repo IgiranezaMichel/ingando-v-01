@@ -11,10 +11,9 @@ import {CampApplicantInput} from '../../../types/CampApplicantInput';
 import {useAccountHolderContext} from '../../../context/accountHolderContext';
 import {CampApplicantStatus} from '../../../enum/campApplicationStatus';
 import {ApplicationForm} from './applicationForm';
-import {useBottomContext} from '../../../context/bottomModalContext';
 export const RegisterFormCamp = (props: {arrIndex: number}) => {
   const {content} = useCampContext();
-  const {isModalVisible} = useBottomContext();
+  const [showApplyingModal, setShowApplyingModal] = useState(false);
   const {responseContent, responseReady} = useAccountHolderContext();
   const [campApplication, setCampApplication] = useState<CampApplicantInput>({
     accountHolderId: responseContent.id,
@@ -119,20 +118,26 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
                   sl.colSm12,
                   sl.rounded0,
                 ]}>
-                <TouchableOpacity style={[sl.bgSuccess]}>
-                  <Text style={[sl.fwBolder, sl.textWhite, sl.p3]}>Apply</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[sl.bgPrimary, sl.p3, sl.mx1]}>
-                  <Text style={[sl.fwBolder, sl.textWhite]}>
-                    Apply for other
+                <TouchableOpacity
+                  style={[sl.bgSuccess, sl.mt3]}
+                  onPress={() => setShowApplyingModal(true)}>
+                  <Text style={[sl.fwBolder, sl.textWhite, sl.p3, sl.p4]}>
+                    Apply
                   </Text>
                 </TouchableOpacity>
               </View>
             </>
           )}
       </BottomModal>
+
       {/* application form */}
-      <ApplicationForm open={!isModalVisible}>
+      <ApplicationForm open={showApplyingModal}>
+        <View style={[sl.row, sl.colSm12, {flexWrap: 'wrap'}, sl.p3]}>
+          <Text style={[sl.textDark, sl.fwBolder]}>Camp Title </Text>
+          <Text style={[sl.textDark]}>
+            {content.responseContent.content[props.arrIndex].title}
+          </Text>
+        </View>
         <View style={[sl.p4]}>
           <TextInput
             placeholder="Enter method used"
@@ -150,7 +155,9 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
             placeholderTextColor={'grey'}
           />
           <View style={[sl.row, sl.mRight]}>
-            <TouchableOpacity style={[sl.bgDanger, sl.my2, sl.p2]}>
+            <TouchableOpacity
+              style={[sl.bgDanger, sl.my2, sl.p2]}
+              onPress={() => setShowApplyingModal(false)}>
               <Text style={[sl.textWhite, sl.fwBolder, sl.mx2, sl.my2]}>
                 Cancel
               </Text>
