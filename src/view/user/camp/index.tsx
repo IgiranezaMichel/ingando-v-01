@@ -41,6 +41,7 @@ export const Home = () => {
     pageSize: 10,
     sort: 'id',
   });
+  
   const {response, refetch} = useActiveCamp(page);
   const data: DataListApi = {
     content: response,
