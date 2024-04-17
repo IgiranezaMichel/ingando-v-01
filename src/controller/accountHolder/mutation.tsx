@@ -22,8 +22,6 @@ export const useFindByEmail = (email: string) => {
 export const useUpdateAccountHolderPassword = (accountHolderEmail:string,oldPassword:string,newPassword:string) => {
     const [findEmail] = useMutation(UPDATE_PASSWORD);
     const updatePassword = async () => {
-      console.log('sent');
-      console.log(accountHolderEmail);
       return await findEmail({variables: {accountHolderEmail:accountHolderEmail,
         oldPassword:oldPassword,
         newPassword:newPassword}});
