@@ -26,7 +26,7 @@ export const Logout = () => {
           <StatusBar backgroundColor={'white'} />
           <View style={[sl.card, sl.colSm11, sl.mAuto, sl.rounded0]}>
             <Text style={[sl.textDark]}>Are you sure you want to log out?</Text>
-            <View style={[sl.row, sl.mRight, sl.mt4]}>
+            <View style={[sl.row, sl.mRight, sl.mt8]}>
               <TouchableOpacity
                 onPress={() => setShowLogoutModal(false)}
                 style={[sl.bgDanger, sl.p2, sl.mx2]}>
