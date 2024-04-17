@@ -8,6 +8,7 @@ export const useActiveCamp = (page: PageInput) => {
   const [response, setResponse] = useState<ResponseData>({
     responseContent: [],
     responseReady: false,
+    refresh: () => {},
   });
   const {data, refetch} = useQuery(ACTIVE_CAMP, {variables: {page: page}});
   useEffect(() => {
@@ -20,6 +21,7 @@ export const useActiveCamp = (page: PageInput) => {
       setResponse({
         responseContent: responseData,
         responseReady: true,
+        refresh: () => {},
       });
     });
   }, [data]);
