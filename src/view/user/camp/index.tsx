@@ -227,11 +227,6 @@ export const Home = () => {
                 },
               )}
           </ScrollView>
-          <LottieView
-            autoPlay={true}
-            source={require('../../../assets/Lottie.json')}
-            style={{width: 100, height: 100}}
-          />
         </View>
         {show == 'campDetail' && <CampDetailModal arrIndex={arrIndex} />}
         {show == 'application' && <RegisterFormCamp arrIndex={arrIndex} />}
