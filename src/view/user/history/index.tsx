@@ -117,8 +117,13 @@ export const History = () => {
           })}
         {openDetailModal && (
           <HistoryDetail arrIndex={selectedIndex} open={openDetailModal}>
-            <View style={[sl.colSm12]}>
-              <Text>x</Text>
+            <View style={[sl.colSm12, {zIndex: 1}]}>
+              <TouchableOpacity
+                onPress={() => {
+                  setOpenDetailModal(false);
+                }}>
+                <Text style={[sl.mRight, sl.fwBolder, sl.textDark]}>close</Text>
+              </TouchableOpacity>
             </View>
           </HistoryDetail>
         )}
