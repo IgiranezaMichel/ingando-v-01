@@ -24,6 +24,7 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
     paymentCode: '',
     telephone: '',
   });
+  // find Account holder
   useEffect(() => {
     if (responseReady && responseContent != undefined) {
       setCampApplication({
@@ -31,7 +32,19 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
         accountHolderId: responseContent.id,
       });
     }
+    if (
+      content.responseReady &&
+      content.responseContent != undefined &&
+      content.responseContent.content != undefined &&
+      content.responseContent.content.length != 0
+    ) {
+      setCampApplication({
+        ...campApplication,
+        campId: content.responseContent.content[props.arrIndex].id,
+      });
+    }
   }, []);
+  console.log(campApplication);
   const {saveCampApplication} = useCampApplication(campApplication);
   const saveApplicationHandler = () => {
     saveCampApplication().then(data => console.log(data));
@@ -147,12 +160,18 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
                 />
                 <TextInput
                   style={[sl.textDark]}
+                  onChangeText={text =>
+                    setCampApplication({...campApplication, telephone: text})
+                  }
                   placeholder="Enter phone Number"
                   underlineColorAndroid={'black'}
                   placeholderTextColor={'grey'}
                 />
                 <TextInput
                   style={[sl.textDark]}
+                  onChangeText={text =>
+                    setCampApplication({...campApplication, paymentCode: text})
+                  }
                   placeholder="Enter Payment code"
                   underlineColorAndroid={'black'}
                   placeholderTextColor={'grey'}
