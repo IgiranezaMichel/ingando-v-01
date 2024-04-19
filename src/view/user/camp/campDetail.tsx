@@ -15,6 +15,7 @@ import {useCampContext} from '../../../context/campContext';
 import {useModalContext} from '../../../context/modalContext';
 import {screen} from '../../../object/screen';
 import {sl} from '../../../style';
+import {TimeLine} from '../../../component/timeline';
 
 export const CampDetailModal = (props: {arrIndex: number}) => {
   const {isModalVisible, setIsModalVisible} = useModalContext();
@@ -81,15 +82,6 @@ export const CampDetailModal = (props: {arrIndex: number}) => {
                         .description
                     }
                   </Text>
-                  {/* <TimeLine
-                    headerTxt="Week of prayer"
-                    headerStyle={[sl.fwBolder, sl.textDark]}>
-                    <Text style={[sl.textPrimary]}>
-                      Description and setting the height dynamically based on
-                      the device's window height, we achieve similar behavior to
-                      using
-                    </Text>
-                  </TimeLine> */}
                   <RenderHTML
                     contentWidth={screen.width}
                     source={{
@@ -101,7 +93,30 @@ export const CampDetailModal = (props: {arrIndex: number}) => {
                     }}
                   />
                 </View>
-                <View style={[sl.row, sl.colSm11, sl.mAuto]}>
+                {/*  */}
+                <View
+                  style={[sl.colSm11, sl.mAuto, sl.card, sl.rounded0, sl.mt2]}>
+                  <TimeLine
+                    headerTxt="Mentor"
+                    headerStyle={[sl.fwBolder, sl.textDark]}>
+                    <Text style={[sl.textPrimary]}>
+                      Description and setting the height dynamically based on
+                      the device's window height, we achieve similar behavior to
+                      using
+                    </Text>
+                  </TimeLine>
+                  <TimeLine
+                    headerTxt="Mentor"
+                    headerStyle={[sl.fwBolder, sl.textDark]}>
+                    <Text style={[sl.textPrimary]}>
+                      Description and setting the height dynamically based on
+                      the device's window height, we achieve similar behavior to
+                      using
+                    </Text>
+                  </TimeLine>
+                </View>
+                {/*  */}
+                <View style={[sl.row, sl.colSm11, sl.mAuto, sl.mt2]}>
                   <View
                     style={[
                       sl.card,
