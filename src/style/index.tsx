@@ -146,7 +146,6 @@ export const sl = StyleSheet.create({
   textDanger: {color: '#dc3545'},
   textMuted: {color: '#6c757d'},
   textShadow: {
-    textAlign: 'center',
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 5,
