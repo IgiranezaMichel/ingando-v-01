@@ -45,7 +45,7 @@ export const HistoryDetail = (props: {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    transform: [{translateY: -50}],
+                    transform: [{translateY: -80}],
                   },
                   sl.colSm12,
                 ]}>
@@ -58,7 +58,7 @@ export const HistoryDetail = (props: {
                     {width: 100, height: 100},
                     sl.bgWhite,
                     sl.border5,
-                    sl.borderDark,
+                    sl.borderWhite,
                     sl.roundedCircle,
                   ]}
                 />
