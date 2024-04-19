@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {useMutation} from '@apollo/client';
-import {UPDATE_PASSWORD, VERIFY_ACCOUNT_HOLDER_EMAIL} from '../../graphql/accountApplication/mutation';
+import {UPDATE_PASSWORD, VERIFY_ACCOUNT_HOLDER_EMAIL} from '../../graphql/accountHolder/mutation';
 import {useState} from 'react';
 import {ResponseType} from '../../types/responseType';
 
