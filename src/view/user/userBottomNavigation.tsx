@@ -20,7 +20,6 @@ export default function AuthenticatedUserBottomNavigation() {
     setShowLogoutModal: (modal: boolean) => setShowModal(modal),
     showLogoutModal: showModal,
   };
-  // const {accountHolderDetail, setAccountHolderDetail} = React.useState();
   const [email] = React.useState('michel.igiraneza@auca.ac.rw');
   const {findEmailHandler, response} = useFindByEmail(email);
 
@@ -35,7 +34,6 @@ export default function AuthenticatedUserBottomNavigation() {
     };
     fetch();
   }, [email]);
-  console.log(response);
   return (
     <AccountHolderContext.Provider value={responseData}>
       <LogoutContext.Provider value={data}>
