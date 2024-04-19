@@ -20,28 +20,24 @@ export const CampDetailModal = (props: {arrIndex: number}) => {
   const {isModalVisible, setIsModalVisible} = useModalContext();
   const {content} = useCampContext();
   return (
-    <Modal
-      animationType="slide"
-      visible={isModalVisible}
-      style={[sl.bgPrimary]}>
+    <Modal animationType="slide" visible={isModalVisible} transparent>
       <StatusBar hidden />
       {content.responseReady &&
         content.responseContent != undefined &&
         content.responseContent.content != undefined &&
         content.responseContent.content.length != 0 &&
         content.responseContent.content[props.arrIndex] && (
-          <>
-            <ScrollView
-              style={[{display: 'flex', height: screen.height}, sl.bgPrimary]}>
+          <View style={[{display: 'flex', height: screen.height}, sl.bgWhite]}>
+            <ScrollView>
               <View
                 style={[
                   {
                     display: 'flex',
                     justifyContent: 'center',
                     height: screen.height,
-                    marginBottom: '25%',
                   },
                 ]}>
+                <StatusBar backgroundColor={'white'} animated />
                 <View
                   style={[sl.card, sl.p0, sl.rounded0, sl.mAuto, sl.colSm11]}>
                   <View style={[sl.borderBottom, sl.p2]}>
@@ -174,7 +170,7 @@ export const CampDetailModal = (props: {arrIndex: number}) => {
                 x
               </Text>
             </TouchableOpacity>
-          </>
+          </View>
         )}
     </Modal>
   );
