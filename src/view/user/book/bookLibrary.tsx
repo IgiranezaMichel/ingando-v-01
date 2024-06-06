@@ -15,6 +15,7 @@ import {PageInput} from '../../../types/pageInput';
 import {ResponseData} from '../../../types/responseData';
 import {ReadBook} from './readBook';
 import {useLogoutModal} from '../../../context/logoutContext';
+import {useLoginContext} from '../../visitor/authentication/loginProvider';
 export const BookLibrary = () => {
   const [page] = useState<PageInput>({
     pageNumber: 0,
@@ -23,7 +24,9 @@ export const BookLibrary = () => {
   });
   const [arrIndex, setArrIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const books = useBookPage(page, '45274380-edf2-434b-8c83-050130dcfe80');
+  const {currentState} = useLoginContext();
+  console.log(currentState.email);
+  const books = useBookPage(page, currentState.id);
   const data: ModalContextType = {
     isModalVisible: showModal,
     setIsModalVisible: isVisible => setShowModal(isVisible),
@@ -32,6 +35,7 @@ export const BookLibrary = () => {
   const bookData: ResponseData = {
     responseContent: books.response.responseContent,
     responseReady: books.response.responseReady,
+    refresh: () => books.refetch(),
   };
   const {setShowLogoutModal} = useLogoutModal();
   return (
@@ -130,6 +134,16 @@ export const BookLibrary = () => {
                   },
                 )}
             </View>
+            {books.response.responseReady &&
+              books.response.responseContent != undefined &&
+              books.response.responseContent.content &&
+              books.response.responseContent.content.length == 0 && (
+                <View style={[sl.card, sl.bgPrimary, sl.rounded0]}>
+                  <Text style={[sl.textCenter, sl.textWhite, sl.fwBolder]}>
+                    No data found
+                  </Text>
+                </View>
+              )}
             <ReadBook arrIndex={arrIndex} />
           </BookLibraryContext.Provider>
         </ModalContext.Provider>
