@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unstable-nested-components */
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -10,9 +9,7 @@ import {History} from './history';
 import {Exam} from './exam';
 import {LogoutContext, LogoutModalProps} from '../../context/logoutContext';
 import {Logout} from './logout';
-import {ResponseData} from '../../types/responseData';
-import {useFindByEmail} from '../../controller/accountHolder/mutation';
-import {AccountHolderContext} from '../../context/accountHolderContext';
+import {useLoginContext} from '../visitor/authentication/loginProvider';
 const Tab = createBottomTabNavigator();
 export default function AuthenticatedUserBottomNavigation() {
   const [showModal, setShowModal] = React.useState(false);
@@ -20,22 +17,12 @@ export default function AuthenticatedUserBottomNavigation() {
     setShowLogoutModal: (modal: boolean) => setShowModal(modal),
     showLogoutModal: showModal,
   };
-  const [email] = React.useState('michel.igiraneza@auca.ac.rw');
-  const {findEmailHandler, response} = useFindByEmail(email);
-
-  const responseData: ResponseData = {
-    responseContent: response.responseContent,
-    responseReady: response.responseReady,
-    refresh: () => findEmailHandler(),
-  };
-  React.useEffect(() => {
-    const fetch = async () => {
-      findEmailHandler();
-    };
-    fetch();
-  }, [email]);
+  const {currentState} = useLoginContext();
+  // const response=JSON.parse(currentState);
+  console.log('======================== log ===========================');
+  console.log(currentState.email);
   return (
-    <AccountHolderContext.Provider value={responseData}>
+    <>
       <LogoutContext.Provider value={data}>
         <Tab.Navigator>
           <Tab.Screen
@@ -115,6 +102,6 @@ export default function AuthenticatedUserBottomNavigation() {
         </Tab.Navigator>
         <Logout />
       </LogoutContext.Provider>
-    </AccountHolderContext.Provider>
+    </>
   );
 }
