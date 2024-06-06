@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {StyleSheet} from 'react-native';
 import {screen} from '../object/screen';
 
@@ -13,6 +14,9 @@ export const sl = StyleSheet.create({
   },
   bgMuted: {
     backgroundColor: '#6c757d',
+  },
+  gradient:{
+    backgroundColor:'linear-gradient(blue,black)',
   },
   bgWhite: {
     backgroundColor: 'white',
@@ -74,6 +78,15 @@ export const sl = StyleSheet.create({
     fontSize: 7 * screen.width * 0.003,
   },
   //   Grid
+  dFlex:{
+display:'flex',
+  },
+  alignItemCenter:{
+    alignItems:'center',
+    },
+    justifyContentCenter:{
+      justifyContent:'center',
+    },
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -132,6 +145,7 @@ export const sl = StyleSheet.create({
   p6: {padding: '6%'},
   //   rounded
   rounded0: {borderRadius: 0},
+  rounded1: {borderRadius: 10},
   roundedCircle: {borderRadius: 100},
   //   text
   fwBolder: {fontWeight: 'bold'},
