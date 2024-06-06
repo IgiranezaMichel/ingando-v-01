@@ -226,6 +226,16 @@ export const Home = () => {
                   );
                 },
               )}
+            {response.responseReady &&
+              response.responseContent != undefined &&
+              response.responseContent.content != undefined &&
+              response.responseContent.content.length == 0 && (
+                <View style={[sl.card, sl.bgPrimary, sl.rounded0]}>
+                  <Text style={[sl.textCenter, sl.textWhite, sl.fwBolder]}>
+                    No data found
+                  </Text>
+                </View>
+              )}
           </ScrollView>
         </View>
         {show == 'campDetail' && <CampDetailModal arrIndex={arrIndex} />}
