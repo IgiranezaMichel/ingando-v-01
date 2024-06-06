@@ -8,15 +8,15 @@ import {sl} from '../../../style';
 import {useCampContext} from '../../../context/campContext';
 import {useCampApplication} from '../../../controller/campApplicant/mutation';
 import {CampApplicantInput} from '../../../types/CampApplicantInput';
-import {useAccountHolderContext} from '../../../context/accountHolderContext';
 import {CampApplicantStatus} from '../../../enum/campApplicationStatus';
 import {ApplicationForm} from './applicationForm';
+import {useLoginContext} from '../../visitor/authentication/loginProvider';
 export const RegisterFormCamp = (props: {arrIndex: number}) => {
   const {content} = useCampContext();
   const [showApplyingModal, setShowApplyingModal] = useState(false);
-  const {responseContent, responseReady} = useAccountHolderContext();
+  const {currentState} = useLoginContext();
   const [campApplication, setCampApplication] = useState<CampApplicantInput>({
-    accountHolderId: responseContent.id,
+    accountHolderId: currentState.id,
     campApplicantStatus: CampApplicantStatus.APPENDING,
     campId: '',
     comment: '',
@@ -26,12 +26,11 @@ export const RegisterFormCamp = (props: {arrIndex: number}) => {
   });
   // find Account holder
   useEffect(() => {
-    if (responseReady && responseContent != undefined) {
-      setCampApplication({
-        ...campApplication,
-        accountHolderId: responseContent.id,
-      });
-    }
+    setCampApplication({
+      ...campApplication,
+      accountHolderId: currentState.id,
+    });
+
     if (
       content.responseReady &&
       content.responseContent != undefined &&
