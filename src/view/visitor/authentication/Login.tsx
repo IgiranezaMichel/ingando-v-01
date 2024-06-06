@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {
@@ -9,14 +10,88 @@ import {
   TouchableWithoutFeedback,
   StatusBar,
   TextInput,
+  Alert,
 } from 'react-native';
 import {useState} from 'react';
 import {screen} from '../../../object/screen';
 import {sl} from '../../../style';
 import {useNavigation} from '@react-navigation/native';
+import {useLoginContext} from './loginProvider';
+import {useFindByEmail} from '../../../controller/accountHolder/mutation';
+// import {LoginContext} from '../../../context/loginContext';
+// import {ResponseData} from '../../../types/responseData';
+// import {useLoginForm} from '../../../controller/accountHolder/mutation';
+// import AuthenticatedUserBottomNavigation from '../../user/userBottomNavigation';
 export const Login = () => {
   const [hidePassword, setHidePassword] = useState(true);
   const navigation = useNavigation();
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const login = useLoginContext();
+  const {findEmailHandler} = useFindByEmail(userName);
+  const successLogin = () => {
+    findEmailHandler()
+      .then(data => {
+        login.updateState(data.data.findByEmail);
+        navigation.navigate('auth_user' as never);
+      })
+      .catch(err => console.log(err));
+  };
+  const loginHandler = async () => {
+    const formData = new FormData();
+    formData.append('username', userName);
+    formData.append('password', password);
+    fetch('http://172.20.2.165:8080/login', {
+      method: 'POST',
+      body: formData,
+      credentials: 'include',
+    })
+      .then(
+        data => {
+          if (data.url.indexOf('success') != -1) {
+            Alert.alert('Login successful');
+            successLogin();
+          } else {
+            Alert.alert('Wrong credentials try again');
+          }
+        },
+        // .then(dataList => {
+        //   if (Object.keys(dataList).length != 0) {
+        //     Alert.alert(dataList.name);
+        //     login.updateState(dataList);
+        //   } else {
+        //     Alert.alert('Wrong credentials try again');
+        //   }
+        // })
+        // .catch(err => console.log(err)),
+      )
+      .catch(err => console.log(err));
+  };
+  // const {findEmailAndPasswordHandler} = useLoginForm(userName, password);
+  // const [responseData, setResponseData] = useState<ResponseData>({
+  //   responseContent: {},
+  //   refresh: () => undefined,
+  //   responseReady: false,
+  // });
+
+  // const loginCredentials = useContext(LoginContext);
+  // console.log(loginCredentials);
+  // const loginHandler = () => {
+  //   console.log('login pressed ...');
+  //   findEmailAndPasswordHandler()
+  //     .then(data => {
+  //       setResponseData({
+  //         refresh: () => findEmailAndPasswordHandler(),
+  //         responseContent: data,
+  //         responseReady: true,
+  //       });
+  //       Alert.alert('Welcome ' + data);
+  //       navigation.navigate('auth_user' as never);
+  //     })
+  //     .catch(Error => {
+  //       Alert.alert(Error.message);
+  //     });
+  // };
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={'blue'} />
@@ -45,6 +120,8 @@ export const Login = () => {
               source={require('../../../assets/visitor/icons/user.png')}
             />
             <TextInput
+              value={userName}
+              onChangeText={text => setUserName(text)}
               style={[{width: '85%'}, sl.textDark]}
               placeholderTextColor={'grey'}
               placeholder="Enter your email ..."
@@ -60,6 +137,8 @@ export const Login = () => {
               />
             </TouchableWithoutFeedback>
             <TextInput
+              value={password}
+              onChangeText={text => setPassword(text)}
               secureTextEntry={hidePassword}
               style={styles.inputTxt}
               placeholderTextColor={'grey'}
@@ -75,13 +154,14 @@ export const Login = () => {
             </Text>
           </View>
 
-          <TouchableWithoutFeedback onPress={() => {}}>
+          <TouchableWithoutFeedback onPress={() => loginHandler()}>
             <View style={styles.loginBtb}>
-              <Text
-                style={styles.loginTxt}
-                onPress={() => navigation.navigate('auth_user' as never)}>
-                Login
-              </Text>
+              <Text style={styles.loginTxt}>Login</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => successLogin()}>
+            <View style={styles.loginBtb}>
+              <Text style={styles.loginTxt}>Success</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
