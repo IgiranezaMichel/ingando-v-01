@@ -14,10 +14,10 @@ import {
 import {sl} from '../../../style';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useEffect, useState} from 'react';
-import {useAccountHolderContext} from '../../../context/accountHolderContext';
 import {BookPreloader} from '../../../component/preloader';
 import {useUpdateAccountHolderPassword} from '../../../controller/accountHolder/mutation';
 import {Popup} from '../../../component/popup';
+import {useLoginContext} from '../../visitor/authentication/loginProvider';
 
 export const Settings = () => {
   const [hidePassword, setHidePassword] = useState(true);
@@ -26,7 +26,7 @@ export const Settings = () => {
     ready: false,
     open: false,
   });
-  const {responseContent} = useAccountHolderContext();
+  const {currentState} = useLoginContext();
   const [passwordDetail, setPasswordDetail] = useState({
     accountHolderEmail: '',
     oldPassword: '',
@@ -34,10 +34,10 @@ export const Settings = () => {
     retypePassword: '',
   });
   useEffect(() => {
-    if (responseContent != undefined) {
+    if (currentState != undefined) {
       setPasswordDetail({
         ...passwordDetail,
-        accountHolderEmail: responseContent.email,
+        accountHolderEmail: currentState.email,
       });
     }
   }, [passwordDetail.accountHolderEmail]);
@@ -72,8 +72,8 @@ export const Settings = () => {
   };
   return (
     <>
-      {responseContent === undefined && <BookPreloader />}
-      {responseContent != undefined && (
+      {currentState === undefined && <BookPreloader />}
+      {currentState != undefined && (
         <>
           <View style={[{backgroundColor: 'blue'}]}>
             <Image
@@ -87,7 +87,7 @@ export const Settings = () => {
                 sl.bgWhite,
                 sl.roundedCircle,
               ]}
-              source={{uri: responseContent.profilePicture}}
+              source={{uri: currentState.profilePicture}}
             />
           </View>
           <ScrollView style={[sl.mt8]}>
@@ -120,17 +120,17 @@ export const Settings = () => {
                   source={require('../../../assets/visitor/avatar.png')}
                 />
                 <Text style={[sl.textDark, sl.fwBolder, sl.mb3, sl.mt3]}>
-                  Name: {responseContent.name}
+                  Name: {currentState.name}
                 </Text>
                 <Text style={[sl.textDark, sl.fwBolder, sl.mb3]}>
                   Ay Level:{' '}
                 </Text>
                 <Text style={[sl.textDark, sl.fwBolder, sl.mb3]}>Church </Text>
                 <Text style={[sl.textDark, sl.fwBolder, sl.mb3]}>
-                  Phone Number: {responseContent.phoneNumber}
+                  Phone Number: {currentState.phoneNumber}
                 </Text>
                 <Text style={[sl.textDark, sl.fwBolder, sl.mb3]}>
-                  Email: {responseContent.email}
+                  Email: {currentState.email}
                 </Text>
                 <TextInput
                   style={[sl.textDark]}
