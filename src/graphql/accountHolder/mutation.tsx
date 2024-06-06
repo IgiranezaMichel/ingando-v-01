@@ -13,6 +13,19 @@ export const VERIFY_ACCOUNT_HOLDER_EMAIL = gql`
     }
   }
 `;
+export const LOGIN = gql`
+  mutation ($email: String, $password: String) {
+    login(email: $email, password: $password) {
+      id
+      name
+      gender
+      email
+      phoneNumber
+      profilePicture
+      dob
+    }
+  }
+`;
 export const UPDATE_PASSWORD = gql`
   mutation (
     $accountHolderEmail: String
