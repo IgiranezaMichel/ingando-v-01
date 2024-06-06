@@ -8,10 +8,10 @@ import {useLogoutModal} from '../../../context/logoutContext';
 import {useDisplayCampHistoryPage} from '../../../controller/campApplicant/query';
 import {useState} from 'react';
 import {PageInput} from '../../../types/pageInput';
-import {useAccountHolderContext} from '../../../context/accountHolderContext';
 import {HistoryDetail} from './historyDetail';
 import {DataListApi} from '../../../types/dataListApi';
 import {CampHistoryContext} from '../../../context/campHistoryContext';
+import {useLoginContext} from '../../visitor/authentication/loginProvider';
 
 export const History = () => {
   const [openDetailModal, setOpenDetailModal] = useState(false);
@@ -23,8 +23,8 @@ export const History = () => {
     pageSize: 10,
     sort: 'id',
   });
-  const {responseContent} = useAccountHolderContext();
-  const {response} = useDisplayCampHistoryPage(page, responseContent.email);
+  const {currentState} = useLoginContext();
+  const {response} = useDisplayCampHistoryPage(page, currentState.email);
   const data: DataListApi = {
     content: response,
     updateContent() {
