@@ -4,9 +4,11 @@ import {Modal, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import {useLogoutModal} from '../../context/logoutContext';
 import {sl} from '../../style';
 import {screen} from '../../object/screen';
+import {useNavigation} from '@react-navigation/native';
 
 export const Logout = () => {
   const {setShowLogoutModal, showLogoutModal} = useLogoutModal();
+  const navigation = useNavigation();
   return (
     <Modal visible={showLogoutModal} transparent={true} animationType="slide">
       <View
@@ -32,7 +34,9 @@ export const Logout = () => {
                 style={[sl.bgDanger, sl.p2, sl.mx2]}>
                 <Text style={[sl.textWhite, sl.fwBolder]}>No</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[sl.bgSuccess, sl.p2, sl.mx2]}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('login' as never)}
+                style={[sl.bgSuccess, sl.p2, sl.mx2]}>
                 <Text style={[sl.textWhite, sl.fwBolder]}>Yes</Text>
               </TouchableOpacity>
             </View>
