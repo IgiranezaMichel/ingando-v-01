@@ -18,10 +18,6 @@ import {sl} from '../../../style';
 import {useNavigation} from '@react-navigation/native';
 import {useLoginContext} from './loginProvider';
 import {useFindByEmail} from '../../../controller/accountHolder/mutation';
-// import {LoginContext} from '../../../context/loginContext';
-// import {ResponseData} from '../../../types/responseData';
-// import {useLoginForm} from '../../../controller/accountHolder/mutation';
-// import AuthenticatedUserBottomNavigation from '../../user/userBottomNavigation';
 export const Login = () => {
   const [hidePassword, setHidePassword] = useState(true);
   const navigation = useNavigation();
@@ -41,57 +37,22 @@ export const Login = () => {
     const formData = new FormData();
     formData.append('username', userName);
     formData.append('password', password);
-    fetch('http://172.20.2.165:8080/login', {
+    fetch('http://192.168.20.39:8080/login', {
       method: 'POST',
       body: formData,
       credentials: 'include',
     })
-      .then(
-        data => {
-          if (data.url.indexOf('success') != -1) {
-            Alert.alert('Login successful');
-            successLogin();
-          } else {
-            Alert.alert('Wrong credentials try again');
-          }
-        },
-        // .then(dataList => {
-        //   if (Object.keys(dataList).length != 0) {
-        //     Alert.alert(dataList.name);
-        //     login.updateState(dataList);
-        //   } else {
-        //     Alert.alert('Wrong credentials try again');
-        //   }
-        // })
-        // .catch(err => console.log(err)),
-      )
+      .then(data => {
+        console.log(data);
+        if (data.url.indexOf('success') != -1) {
+          Alert.alert('Login successful');
+          successLogin();
+        } else {
+          Alert.alert('Wrong credentials try again');
+        }
+      })
       .catch(err => console.log(err));
   };
-  // const {findEmailAndPasswordHandler} = useLoginForm(userName, password);
-  // const [responseData, setResponseData] = useState<ResponseData>({
-  //   responseContent: {},
-  //   refresh: () => undefined,
-  //   responseReady: false,
-  // });
-
-  // const loginCredentials = useContext(LoginContext);
-  // console.log(loginCredentials);
-  // const loginHandler = () => {
-  //   console.log('login pressed ...');
-  //   findEmailAndPasswordHandler()
-  //     .then(data => {
-  //       setResponseData({
-  //         refresh: () => findEmailAndPasswordHandler(),
-  //         responseContent: data,
-  //         responseReady: true,
-  //       });
-  //       Alert.alert('Welcome ' + data);
-  //       navigation.navigate('auth_user' as never);
-  //     })
-  //     .catch(Error => {
-  //       Alert.alert(Error.message);
-  //     });
-  // };
   return (
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor={'blue'} />
@@ -157,11 +118,6 @@ export const Login = () => {
           <TouchableWithoutFeedback onPress={() => loginHandler()}>
             <View style={styles.loginBtb}>
               <Text style={styles.loginTxt}>Login</Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => successLogin()}>
-            <View style={styles.loginBtb}>
-              <Text style={styles.loginTxt}>Success</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
